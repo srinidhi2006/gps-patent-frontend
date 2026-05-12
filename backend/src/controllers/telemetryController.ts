@@ -1,3 +1,4 @@
+import calculateThreatScore from '../services/threatScore';
 import detectRouteDeviation from '../services/routeDeviation';
 import detectSpoof from '../services/spoofDetection';
 import { Request, Response } from 'express';
@@ -7,13 +8,18 @@ export const addTelemetry = async (req: Request, res: Response) => {
   try {
     const spoofDetected = detectSpoof(req.body);
     const routeDeviation = detectRouteDeviation(req.body);
-
+    const threatAnalysis = calculateThreatScore({
+  spoofDetected,
+  routeDeviation,
+  signalStrength: req.body.signalStrength
+});
 const telemetry = await Telemetry.create({
   ...req.body,
   spoofDetected,
-  routeDeviation
+  routeDeviation,
+  threatScore: threatAnalysis.threatScore,
+  riskLevel: threatAnalysis.riskLevel
 });
-
     res.status(201).json(telemetry);
   } catch (error) {
     res.status(500).json({

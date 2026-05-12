@@ -26,11 +26,22 @@ const telemetrySchema = new mongoose.Schema({
     default: false
   },
 
+  threatScore: {
+  type: Number,
+  default: 0
+},
+
+riskLevel: {
+  type: String,
+  default: 'LOW'
+},
+
   timestamp: {
     type: Date,
     default: Date.now
   },
   
+
   routeDeviation: {
   type: Boolean,
   default: false
