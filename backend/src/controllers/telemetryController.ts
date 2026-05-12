@@ -1,3 +1,4 @@
+import detectRouteDeviation from '../services/routeDeviation';
 import detectSpoof from '../services/spoofDetection';
 import { Request, Response } from 'express';
 import Telemetry from '../models/Telemetry';
@@ -5,10 +6,12 @@ import Telemetry from '../models/Telemetry';
 export const addTelemetry = async (req: Request, res: Response) => {
   try {
     const spoofDetected = detectSpoof(req.body);
+    const routeDeviation = detectRouteDeviation(req.body);
 
 const telemetry = await Telemetry.create({
   ...req.body,
-  spoofDetected
+  spoofDetected,
+  routeDeviation
 });
 
     res.status(201).json(telemetry);

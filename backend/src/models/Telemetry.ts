@@ -29,7 +29,14 @@ const telemetrySchema = new mongoose.Schema({
   timestamp: {
     type: Date,
     default: Date.now
-  }
+  },
+  
+  routeDeviation: {
+  type: Boolean,
+  default: false
+}
+
 });
+
 
 export default mongoose.model('Telemetry', telemetrySchema);
