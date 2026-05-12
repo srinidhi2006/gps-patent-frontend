@@ -1,14 +1,8 @@
 import express from 'express';
+import { getDashboardStats } from '../controllers/dashboardController';
 
 const router = express.Router();
 
-router.get('/stats', (req, res) => {
-  res.json({
-    aiConfidence: 97,
-    activeSatellites: 14,
-    threatsDetected: 2,
-    signalReliability: 93
-  });
-});
+router.get('/stats', getDashboardStats);
 
 export default router;

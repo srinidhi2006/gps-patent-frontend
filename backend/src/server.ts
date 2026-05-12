@@ -1,3 +1,4 @@
+import aiRoutes from './routes/ai';
 import express from 'express';
 import cors from 'cors';
 import dashboardRoutes from './routes/dashboard';
@@ -8,6 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/ai', aiRoutes);
 
 app.get('/', (req, res) => {
   res.send('Backend Running');
