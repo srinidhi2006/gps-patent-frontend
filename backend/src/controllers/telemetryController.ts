@@ -1,9 +1,15 @@
+import detectSpoof from '../services/spoofDetection';
 import { Request, Response } from 'express';
 import Telemetry from '../models/Telemetry';
 
 export const addTelemetry = async (req: Request, res: Response) => {
   try {
-    const telemetry = await Telemetry.create(req.body);
+    const spoofDetected = detectSpoof(req.body);
+
+const telemetry = await Telemetry.create({
+  ...req.body,
+  spoofDetected
+});
 
     res.status(201).json(telemetry);
   } catch (error) {
